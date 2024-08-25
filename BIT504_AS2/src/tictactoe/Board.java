@@ -34,43 +34,57 @@ public class Board {
 		
 		boolean isDraw = false;
 		
-		for (int row = 0; row < GameMain.ROWS; ++row) {          
-			for (int col = 0; col < GameMain.COLS; ++col) {  
-				 if (cells[row][col].content == Player.Empty) {
-					 isDraw =false;
-				} else isDraw = true;
+		for (int row = 0; row < GameMain.ROWS; ++row) {
+			for (int col = 0; col < GameMain.COLS; ++col) {
+				if (cells[row][col].content==Player.Empty) {isDraw=false;}
+				else isDraw = true;
 			}
 		}
 		
 		return isDraw;
+			
 		
 	}
 	
 	/** Return true if the current player "thePlayer" has won after making their move  */
 	public boolean hasWon(Player thePlayer, int playerRow, int playerCol) {
-		 // check if player has 3-in-that-row
-		if(cells[playerRow][0].content == thePlayer && cells[playerRow][1].content == thePlayer && cells[playerRow][2].content == thePlayer )
-			return true; 
 		
+		boolean result = false;
+		
+		 // check if player has 3-in-that-row
+		if(cells[playerRow][0].content == thePlayer && cells[playerRow][1].content == thePlayer && cells[playerRow][2].content == thePlayer ) {
+			System.out.println("Row win");
+			result = true;
+		}
+				
 		  //Check if the player has 3 in the playerCol.
 		 // Hint: Use the row code above as a starting point, remember that it goes cells[row][column] 
-		if(cells[playerCol][0].content == thePlayer && cells[playerCol][1].content == thePlayer && cells[playerCol][2].content == thePlayer )
-			return true; 
-		
+		if(cells[0][playerCol].content == thePlayer && cells[1][playerCol].content == thePlayer && cells[2][playerCol].content == thePlayer ) {
+			System.out.println("Column win");
+			result = true;
+		}
 		
 		 // 3-in-the-diagonal
-		if( cells[0][0].content == thePlayer && cells[1][1].content == thePlayer && cells[2][2].content == thePlayer)
-			return true;
-		 
-		
-		// Check the diagonal in the other direction
-		if( cells[2][0].content == thePlayer && cells[1][1].content == thePlayer && cells[0][2].content == thePlayer)
-			return true;
-		 
+		if( cells[0][0].content == thePlayer && cells[1][1].content == thePlayer && cells[2][2].content == thePlayer) {
+			System.out.println("Diagonal win 1");
+			result = true;
+		}
 
 		
-		//no winner, keep playing
-		return false;
+		// Check the diagonal in the other direction
+		if( cells[2][0].content == thePlayer && cells[1][1].content == thePlayer && cells[0][2].content == thePlayer) {
+			System.out.println("Diagonal win 2");
+			result = true;
+		}
+		
+		else {
+			//no winner, keep playing
+			System.out.println("Keep playing");
+			return false;
+		}
+		
+		return result;
+
 	}
 	
 	/**
