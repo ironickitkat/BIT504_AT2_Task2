@@ -40,7 +40,7 @@ public class GameMain extends JPanel implements MouseListener{
 	/** Constructor to setup the UI and game components on the panel */
 	public GameMain() {   
 		
-		// TODO: This JPanel fires a MouseEvent on MouseClicked so add required event listener to 'this'.          
+		// This JPanel fires a MouseEvent on MouseClicked so add required event listener to 'this'.          
 		JPanel panel = new JPanel();
 	    panel.addMouseListener(this);
 	    addMouseListener(this);
@@ -76,7 +76,6 @@ public class GameMain extends JPanel implements MouseListener{
 				// Create the new GameMain panel and add it to the frame
 				 frame.setContentPane(new GameMain());
 
-				
 				// Set the default close operation of the frame to exit_on_close
 		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    
 				
@@ -108,13 +107,18 @@ public class GameMain extends JPanel implements MouseListener{
 				statusBar.setText("O's Turn");
 				
 			}       
-			} else if (currentState == GameState.Draw) {          
+			} else if (currentState == GameState.Draw) {  
+				//Use status bar to display Draw message
 				statusBar.setForeground(Color.RED);          
-				statusBar.setText("It's a Draw! Click to play again.");       
-			} else if (currentState == GameState.Cross_won) {          
+				statusBar.setText("It's a Draw! Click to play again.");
+				
+			} else if (currentState == GameState.Cross_won) {
+				//Use status bar to display X Won message
 				statusBar.setForeground(Color.RED);          
-				statusBar.setText("'X' Won! Click to play again.");       
-			} else if (currentState == GameState.Nought_won) {          
+				statusBar.setText("'X' Won! Click to play again.");
+				
+			} else if (currentState == GameState.Nought_won) {
+				//Use status bar to display O Won message
 				statusBar.setForeground(Color.RED);          
 				statusBar.setText("'O' Won! Click to play again.");       
 			}
@@ -142,29 +146,20 @@ public class GameMain extends JPanel implements MouseListener{
 		public void updateGame(Player thePlayer, int row, int col) {
 			//check for win after play
 			if(board.hasWon(thePlayer, row, col)) {
-			
-				GameState correctWinner;
-				
-				// TODO: check which player has won and update the currentstate to the appropriate gamestate for the winner
-				System.out.println(thePlayer + " won");
-				
-				if (thePlayer == Player.Cross) {correctWinner = GameState.Cross_won;}
-				else {correctWinner = GameState.Nought_won;}
 								
-				currentState = correctWinner;
-				
-				System.out.println("Current State is: " + currentState);
-				
-				
-														
-			}if(board.isDraw ()) {
+				// check which player has won	
+				if (thePlayer == Player.Cross) {
+				//update currentState to the appropriate GameState for the winner
+				currentState = GameState.Cross_won;} else {
+				currentState = GameState.Nought_won;}
+																						
+			} else if (board.isDraw ()) {
 					
 				// set the currentstate to the draw gamestate
 				currentState = GameState.Draw;	} else {
 				//otherwise no change to current state of playing
 				currentState = GameState.Playing;}
-			
-			
+						
 		}
 		
 				
